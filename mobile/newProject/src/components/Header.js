@@ -36,8 +36,5 @@ const styles = StyleSheet.create({
   icon: {
     padding: 8,
   },
-  line: {
-    
-  }
 })
 export default Header;
