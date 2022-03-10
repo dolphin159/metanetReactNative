@@ -3,6 +3,7 @@ import { View, Text, SafeAreaView, StyleSheet, ScrollView } from 'react-native';
 import Header from "../components/Header";
 import Post from "../components/Post";
 import Stories from "../components/Stories";
+import BottomTabs from "../components/BottomTabs";
 import { PostList } from "../data/posts";
 
 const MainScreen = () => {
@@ -15,6 +16,7 @@ const MainScreen = () => {
                     <Post post={post} key={i} />
                 ))}
             </ScrollView>
+            <BottomTabs />
         </SafeAreaView>
     )
 }

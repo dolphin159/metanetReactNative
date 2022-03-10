@@ -12,6 +12,15 @@ interface story {
   storyContent: string;
 }
 
+export const LoginSession: user = {
+  userid: 'winter123',
+  password: 'hash',
+  avatar:
+    'https://cdn.newscj.com/news/photo/202201/newscj_%EC%B2%9C%EC%A7%80%EC%9D%BC%EB%B3%B4_2022_1_9_172514_1003175.jpg',
+  email: 'winter123@gmail.com',
+  phone: '111-4444',
+};
+
 export const StoryList: story[] = [
   {
     userid: 'winter123',
