@@ -4,21 +4,6 @@ import { EventType } from 'react-native-gesture-handler/lib/typescript/EventType
 import { Text } from 'react-native-paper';
 import { event } from 'react-native-reanimated';
 
-const [userID, setuserID] = useState("");
-const [userIDError, setuserIDError] = useState("");
-
-const onuserIDChange = (e) => {
-    setuserIDError("");
-    setuserID(e.target.value);
-}
-const handlesubmit = (e) => {
-    e.preventDefault();
-
-    if (userID === "") {
-        setuserIDError("ID를 입력하세요.")
-    }
-
-}
 
 class SignUp extends Component {
 
