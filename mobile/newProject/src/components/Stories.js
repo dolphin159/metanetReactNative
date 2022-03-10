@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, ScrollView, StyleSheet, Image } from "react-native";
 import { Colors } from "react-native-paper";
-import { orange400 } from "react-native-paper/lib/typescript/styles/colors";
 import { StoryList } from "../data/users";
 
 
@@ -13,7 +12,7 @@ const Stories = () => {
                 showsHorizontalScrollIndicator={false}
             >
                 {StoryList.map((story, i) => (
-                    <View>
+                    <View key={i}>
                         <Image 
                             style={[styles.avatar]}
                             source={{uri: story.avatar}}
@@ -31,8 +30,7 @@ const Stories = () => {
 
 const styles = StyleSheet.create({
     container: {
-        marginBottom: 13,
-
+        marginBottom: 5,
     },
     avatar: {
         width: 70,

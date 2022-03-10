@@ -4,7 +4,7 @@ interface post {
   avatar: string;
   like: number;
   comment: comment[];
-  ContentImg: string;
+  ContentImg: string[];
   Content: string;
 }
 
@@ -41,8 +41,10 @@ export const PostList: post[] = [
         comment: 'awesome',
       },
     ],
-    ContentImg:
+    ContentImg: [
       'http://www.starinnews.com/news/photo/202110/328063_328332_5233.jpeg',
+      'https://img.hankyung.com/photo/202112/BF.28426975.1.jpg',
+    ],
     Content: 'picture! ><',
   },
   {
@@ -71,8 +73,9 @@ export const PostList: post[] = [
         comment: 'awesome',
       },
     ],
-    ContentImg:
+    ContentImg: [
       'https://file.mk.co.kr/meet/neds/2021/12/image_readtop_2021_1128388_16391105484879287.jpg',
+    ],
     Content: '♥♥♥ :)',
   },
   {
@@ -101,7 +104,7 @@ export const PostList: post[] = [
         comment: 'awesome',
       },
     ],
-    ContentImg: 'https://img.hankyung.com/photo/201912/99.11408081.1.jpg',
+    ContentImg: ['https://img.hankyung.com/photo/201912/99.11408081.1.jpg'],
     Content: 'chicken ~~',
   },
   {
@@ -130,8 +133,9 @@ export const PostList: post[] = [
         comment: 'very good',
       },
     ],
-    ContentImg:
+    ContentImg: [
       'https://cdn.pixabay.com/photo/2017/06/30/22/12/landscape-2459981_960_720.jpg',
+    ],
     Content: 'greenday',
   },
   //   {
