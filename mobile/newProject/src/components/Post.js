@@ -1,9 +1,11 @@
 import React, {useState} from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
 import { Colors } from "react-native-paper";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TouchableView } from "./TouchableView";
 import { ImageSlider } from "../components/ImageSlider";
+
+const {width, height} = Dimensions.get('window');
 
 const Post = ({post}) => {
     return (
@@ -20,6 +22,7 @@ const Post = ({post}) => {
                 <Likes post={post} />
                 <Caption post={post} />
                 <CommentSection post={post} />
+                {/* <Comment post={post} /> */}
             </View>
         </View>
     )
@@ -46,7 +49,7 @@ const PostHeadr = ({post}) => (
 
 const PostImage = ({post}) => (
     <View style={[styles.contentImgView]}>
-        <ImageSlider imageUrls={post.ContentImg.map((img, i) => img)} imageWidth={395} />
+        <ImageSlider imageUrls={post.ContentImg.map((img, i) => img)} imageWidth={width} />
         {/* <Image 
             style={[styles.contentImg]}
             source={{uri: post.ContentImg.map((img, i) => img)}}
@@ -115,13 +118,23 @@ function CommentSection ({post}) {
 }
 
 const Comment = ({post}) => (
-    <View style={[styles.caption]}>
-        <Text style={[styles.userId]}>
-            {post.comment.map((userid, index) => userid)}
+    <View style={{marginLeft: 8}}>
+        {/* <Text style={[styles.userId]}>
+            {post.comment.map((id, index) => id.userid)}
         </Text>
         <Text style={[styles.content]}>
-            {post.comment.map((comment, index) => comment)}
-        </Text>
+            {post.comment.map((comment, index) => comment.comment)}
+        </Text> */}
+        {post.comment.map((val, index) => (
+            <View style={{flexDirection: 'row'}} key={index}>
+                <Text style={[styles.userId]}>
+                    {val.userid}
+                </Text>
+                <Text style={[styles.content]}>
+                    {val.comment}
+                </Text>
+            </View>
+        ))}
     </View>
 ) 
 
@@ -173,7 +186,7 @@ const styles = StyleSheet.create({
     },
     caption: {
         marginLeft: 8,
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     userId: {
         fontWeight: '700',
@@ -186,7 +199,6 @@ const styles = StyleSheet.create({
     viewComment: {
         marginLeft: 8,
         color: Colors.grey500,
-
     }
 
 })
