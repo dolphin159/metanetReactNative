@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
 import { Colors } from "react-native-paper";
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { TouchableView } from "./TouchableView";
-import { ImageSlider } from "../components/ImageSlider";
 
-const { width, height } = Dimensions.get('window');
+// const { width, height } = Dimensions.get('window');
 
-const Post = ({ post }) => {
+const CommentList = ({ post }) => {
     return (
         <View style={{ marginBottom: 30 }}>
             <View
@@ -47,7 +44,7 @@ const Caption = ({ post }) => (
 )
 
 const Content = ({ post }) => (
-    <View style={{ marginLeft: 50, marginBottom: 10 }}>
+    <View style={{ marginLeft: 50, marginBottom: 25 }}>
         <Text style={[styles.content]}>
             {post.Content}
         </Text>
@@ -115,11 +112,11 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         color: Colors.black
     },
-    viewComment: {
-        marginLeft: 8,
-        color: Colors.grey500,
-    }
+    // viewComment: {
+    //     marginLeft: 8,
+    //     color: Colors.grey500,
+    // }
 
 })
 
-export default Post;
+export default CommentList;
