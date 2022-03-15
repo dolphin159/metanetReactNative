@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, Image, Button } from "react-native";
 import { Colors } from 'react-native-paper'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
+import { NavigationContainer } from "@react-navigation/native";
 
 const PlaceHolder_Img = 
     'https://www.froben11.de/wp-content/uploads/2016/10/orionthemes-placeholder-image-1024x683.png';
@@ -12,14 +13,18 @@ const uploadPostSchema = Yup.object().shape({
     caption: Yup.string().max(2200, 'Caption has reached the character limit.')
 })
 
-const FormikPostUploader = () => {
+const FormikPostUploader = ({navigation}) => {
     const [thumbnailUrl, setThumbnailUrl] = useState(PlaceHolder_Img);
 
 
     return (
         <Formik
         initialValues={{caption: '', imageUrl: ''}}
-        onSubmit={values => console.log(values)}
+        onSubmit={values => {
+            console.log(values)
+            console.log('Your Post was submitted successfully!')
+            navigation.goBack()
+        }}
         validationSchema={uploadPostSchema}
         validateOnMount={true}
         >

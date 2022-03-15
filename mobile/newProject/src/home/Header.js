@@ -4,7 +4,7 @@ import { Colors } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TouchableView } from '../components/TouchableView'
 
-const Header = () => {
+const Header = ({navigation}) => {
   return (
     <View style={[styles.header]}>
       <TouchableView>
@@ -14,7 +14,7 @@ const Header = () => {
         <Text style={[styles.headerText]}>Instagram</Text>
       </TouchableView>
       <TouchableView>
-        <Icon style={[styles.icon]} name="send" size={28}/>
+        <Icon style={[styles.icon]} name="plus-box" size={28} onPress={() => navigation.push('NewPostScreen')} />
       </TouchableView>
     </View>
   );

@@ -3,18 +3,18 @@ import { View, Text, StyleSheet } from "react-native";
 import { TouchableIcon } from "../components/TouchableIcon";
 import FormikPostUploader from "./FormikPostUploader"
 
-const AddNewPost = () => {
+const AddNewPost = ({navigation}) => {
     return (
         <View style={[styles.container]}>
-            <Header />
-            <FormikPostUploader />
+            <Header navigation={navigation} />
+            <FormikPostUploader navigation={navigation} />
         </View>
     )
 }
 
-const Header = () => (
+const Header = ({navigation}) => (
     <View style={[styles.headerContainer]}>
-        <TouchableIcon name="chevron-left" size={35}/>
+        <TouchableIcon name="chevron-left" size={35} onPress={() => navigation.goBack()}/>
         <Text style={[styles.headerText]}>New Post</Text>
         <Text></Text>
     </View>

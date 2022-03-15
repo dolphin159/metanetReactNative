@@ -6,10 +6,10 @@ import Stories from "../home/Stories";
 import BottomTabs from "../home/BottomTabs";
 import { PostList } from "../data/posts";
 
-const MainScreen = () => {
+const MainScreen = ({navigation}:any) => {
     return(
         <SafeAreaView style={[styles.container]}>
-            <Header />
+            <Header navigation={navigation} />
             <Stories />
             <ScrollView>
                 {PostList.map((post, i) => (
