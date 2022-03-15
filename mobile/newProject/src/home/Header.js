@@ -1,8 +1,8 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, PermissionsAndroid} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import { Colors } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { TouchableView } from './TouchableView'
+import { TouchableView } from '../components/TouchableView'
 
 const Header = () => {
   return (

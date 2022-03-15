@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "10123743724",
+    "project_id": "instargram-clone-a77e6",
+    "storage_bucket": "instargram-clone-a77e6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:10123743724:android:86c9480e5641f9ea8a30c9",
+        "android_client_info": {
+          "package_name": "com.newproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "10123743724-trs0db80liauav53ktqgm83ugn7htaur.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBL1vggI2jnZ7Byil_PztQiSCPF1KL5m_c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "10123743724-trs0db80liauav53ktqgm83ugn7htaur.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

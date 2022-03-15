@@ -1,9 +1,9 @@
 import React from "react";
 import { View, Text, SafeAreaView, StyleSheet, ScrollView } from 'react-native';
-import Header from "../components/Header";
-import Post from "../components/Post";
-import Stories from "../components/Stories";
-import BottomTabs from "../components/BottomTabs";
+import Header from "../home/Header";
+import Post from "../home/Post";
+import Stories from "../home/Stories";
+import BottomTabs from "../home/BottomTabs";
 import { PostList } from "../data/posts";
 
 const MainScreen = () => {

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { View, Text, StyleSheet, Image } from 'react-native'
-import { TouchableView } from "./TouchableView";
+import { TouchableView } from "../components/TouchableView";
 import { LoginSession } from "../data/users"
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Colors } from "react-native-paper";
