@@ -24,7 +24,7 @@ const firebaseConfig = {
 // const app = initializeApp(firebaseConfig);
 !firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app()
 // const analytics = getAnalytics(app);
-
-const db = firebase.firestore().settings({ experimentalForceLongPolling: true})
+firebase.firestore().settings({ experimentalForceLongPolling: true})
+const db = firebase.firestore()
 
 export { firebase, db }
