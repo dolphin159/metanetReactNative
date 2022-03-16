@@ -23,7 +23,7 @@ const SignUp = ({navigation}:any) => {
             const authUser = await firebase
                 .auth()
                 .createUserWithEmailAndPassword(email, password)
-                
+
             console.log('firebase user created successfully')
 
             db.collection('users').add({
@@ -34,6 +34,9 @@ const SignUp = ({navigation}:any) => {
                 avatar: '',
                 phone: '',
             })
+
+            Alert.alert('Info','회원가입이 완료되었습니다!!')
+            navigation.goBack()
         } catch (error:any) {
             Alert.alert(error.message)
         }
