@@ -80,7 +80,7 @@ const PostFooter = () => (
 
 const Likes = ({post}) => (
     <Text style={[styles.likeText]}>
-        {post.like.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} likes
+        {post.like.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}명이 좋아합니다.
     </Text>
 )
 
@@ -109,7 +109,7 @@ function CommentSection ({post}) {
             !!post.comment.length &&
             <View>
                 <Text style={[styles.viewComment]} onPress={() => pressComment(!commentView)}>
-                    View {post.comment.length > 1 ? 'all ' + post.comment.length + ' comments' : 'comment'}
+                    댓글 {post.comment.length > 1 ? post.comment.length + '개 모두 보기' : '개 보기'}
                 </Text>
             </View>
         }
