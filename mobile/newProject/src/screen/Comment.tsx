@@ -1,13 +1,13 @@
 import React from "react";
 import { View, Text, SafeAreaView, StyleSheet, ScrollView } from 'react-native';
-import Header from "../components/Header";
+import Header from "../home/Header";
 import Post from "../components/Post";
 import CommentList from '../components/CommentList'
-import Stories from "../components/Stories";
-import BottomTabs from "../components/BottomTabs";
+import Stories from "../home/Stories";
+import BottomTabs from "../home/BottomTabs";
 import { PostList } from "../data/posts";
 
-const MainScreen = () => {
+const Comment = () => {
     return (
         <SafeAreaView style={[styles.container]}>
             <ScrollView>
@@ -26,4 +26,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default MainScreen;
+export default Comment;
