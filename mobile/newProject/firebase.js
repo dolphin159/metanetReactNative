@@ -2,7 +2,6 @@
 // import { initializeApp } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
 import firebase from 'firebase/compat/app';
-import { initializeFirestore } from 'firebase/firestore'
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 // TODO: Add SDKs for Firebase products that you want to use

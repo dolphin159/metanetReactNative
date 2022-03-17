@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TextInput, Image, Button } from "react-native";
 import { Colors } from 'react-native-paper'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
 import validUrl from 'valid-url'
+import { firebase, db } from '../../firebase'
 
 const PlaceHolder_Img = 
     'https://www.froben11.de/wp-content/uploads/2016/10/orionthemes-placeholder-image-1024x683.png';
@@ -15,6 +16,7 @@ const uploadPostSchema = Yup.object().shape({
 
 const FormikPostUploader = ({navigation}) => {
     const [thumbnailUrl, setThumbnailUrl] = useState(PlaceHolder_Img);
+    const [currentUser, setCurrentUser] = useState(null)
 
 
     return (

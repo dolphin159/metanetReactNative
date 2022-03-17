@@ -3,14 +3,28 @@ import {View, Text, StyleSheet} from 'react-native';
 import { Colors } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TouchableView } from '../components/TouchableView'
+import { firebase } from '../../firebase'
 
+// 로그아웃 구현
+const handleSignOut = async () => {
+  try {
+    await firebase.auth().signOut()
+    console.log('로그아웃 되었습니다!')
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// Main화면 헤더
 const Header = ({navigation}) => {
   return (
     <View style={[styles.header]}>
       <TouchableView>
         <Icon style={[styles.icon]} name="camera" size={28}/>
       </TouchableView>
-      <TouchableView>
+      <TouchableView
+        onPress={handleSignOut}
+      >
         <Text style={[styles.headerText]}>Instagram</Text>
       </TouchableView>
       <TouchableView>

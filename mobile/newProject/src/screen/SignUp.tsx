@@ -20,23 +20,24 @@ const SignUp = ({navigation}:any) => {
 
     const onSignUp = async (email:string, password:string, name:string, username:string) => {
         try {
-            const authUser = await firebase
+            const authUser:any = await firebase
                 .auth()
                 .createUserWithEmailAndPassword(email, password)
 
-            console.log('firebase user created successfully')
+            console.log('회원가입이 완료되었습니다!!')
 
-            db.collection('users').add({
-                owner_uid: authUser.user?.uid,
-                name: name,
-                username: username,
-                email: authUser.user?.email,
-                avatar: '',
-                phone: '',
+            db.collection('users')
+                .doc(authUser.user.email)
+                .set({
+                    owner_uid: authUser.user?.uid,
+                    name: name,
+                    username: username,
+                    email: authUser.user?.email,
+                    avatar: '',
+                    phone: '',
             })
 
             Alert.alert('Info','회원가입이 완료되었습니다!!')
-            navigation.goBack()
         } catch (error:any) {
             Alert.alert(error.message)
         }

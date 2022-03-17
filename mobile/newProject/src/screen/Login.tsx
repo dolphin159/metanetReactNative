@@ -14,14 +14,16 @@ const Login = ({navigation}:any) => {
             .min(6, '비밀번호는 최소 6자 이상입니다.')
     })
 
+    // firebase 로그인
     const onLogin = async (email: string, password: string) => {
         try{
             await firebase.auth().signInWithEmailAndPassword(email, password)
-            console.log("firebase Login Successful", email, password)
+            console.log("로그인 되었습니다!", email, password)
         } catch(error:any) {
             Alert.alert(error.message);
         }
     }
+    
     return (
         <View style={styles.container}>
             <Formik
