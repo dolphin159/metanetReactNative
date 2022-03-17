@@ -7,6 +7,7 @@ import Validator from 'email-validator'
 import {firebase} from '../../firebase';
 
 const Login = ({navigation}:any) => {
+    // Yup을 활용한 format정의 및 유효성 검사
     const LoginFormSchema = Yup.object().shape({
         email: Yup.string().required('id를 입력해주세요.'),
         password: Yup.string()

@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
 import { Colors } from "react-native-paper";
+import { TouchableIcon } from "../components/TouchableIcon"
 
 // const { width, height } = Dimensions.get('window');
 
-const CommentList = ({ post }) => {
+const CommentList = ({ navigation, route }) => {
+    // useEffect(() => {
+    //     console.log(route.params.post)
+    // })
     return (
         <View style={{ marginBottom: 30 }}>
             <View
@@ -13,56 +17,60 @@ const CommentList = ({ post }) => {
                     borderColor: Colors.grey300
                 }}
             >
-                <Caption post={post} />
-                <Content post={post} />
-                <Comment post={post} />
+                <CommentHeader navigation={navigation} />
+                <Caption caption={route.params.post} />
+                <View style={{backgroundColor: Colors.grey400, width:'100%', height: 0.3}} />
+                <Comment comment={route.params.post.comment} />
             </View>
         </View>
     )
 }
 
+const CommentHeader = ({navigation}) => (
+    <View style={[styles.headerContainer]}>
+        <TouchableIcon 
+           name="chevron-left" 
+           size={35}
+           onPress={() => navigation.goBack()}/>
+        <Text style={[styles.headerText]}>댓글</Text>
+        <View style={{alignItems: 'flex-end'}}>
+            <TouchableIcon
+                style={{margin: 3}}
+                name="send-outline" 
+                size={30}
+                onPress={() => navigation.goBack()}/>
+        </View>
+    </View>
+)
 
-const Caption = ({ post }) => (
+const Caption = ({ caption }) => (
     <View style={[styles.caption]}>
-        {/* <Text style={styles.avatar}>
-            {post.avatar}
-        </Text>
-        <Text style={[styles.userId]}>
-            {post.userid}
-        </Text> */}
         <View style={[styles.header]}>
             <Image
                 style={[styles.avatar]}
-                source={{ uri: post.avatar }}
+                source={{ uri: caption.avatar }}
             />
             <Text style={[styles.avatarName]}>
-                {post.userid}
+                {caption.userid}
+            </Text>
+            <Text style={[styles.content]}>
+                {caption.Content}
             </Text>
         </View>
 
     </View>
 )
 
-const Content = ({ post }) => (
-    <View style={{ marginLeft: 50, marginBottom: 25 }}>
-        <Text style={[styles.content]}>
-            {post.Content}
-        </Text>
-    </View>
-)
 
-
-const Comment = ({ post }) => (
-    <View style={{ marginLeft: 10 }}>
-        {/* <Text style={[styles.userId]}>
-            {post.comment.map((id, index) => id.userid)}
-        </Text>
-        <Text style={[styles.content]}>
-            {post.comment.map((comment, index) => comment.comment)}
-        </Text> */}
-        {post.comment.map((val, index) => (
-            <View style={{ flexDirection: 'row' }} key={index}>
-                <Text style={[styles.userId]}>
+const Comment = ({ comment }) => (
+    <View style={{ marginLeft: 10, marginTop: 15 }}>
+        {comment.map((val, index) => (
+            <View style={[styles.header]} key={index}>
+                <Image
+                    style={[styles.avatar]}
+                    source={{ uri: val.avatar }}
+                /> 
+                <Text style={[styles.avatarName]}>
                     {val.userid}
                 </Text>
                 <Text style={[styles.content]}>
@@ -101,8 +109,8 @@ const styles = StyleSheet.create({
         color: Colors.black,
     },
     caption: {
-        marginLeft: 8,
-        flexDirection: 'row',
+        margin: 8,
+        flexDirection: 'row'
     },
     userId: {
         fontWeight: '700',
@@ -112,10 +120,18 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         color: Colors.black
     },
-    // viewComment: {
-    //     marginLeft: 8,
-    //     color: Colors.grey500,
-    // }
+    headerContainer: {
+        padding: 3, 
+        flexDirection:'row', 
+        justifyContent: 'space-between'
+    },
+    headerText: {
+        marginRight: 230, 
+        fontSize: 20, 
+        marginTop: 3, 
+        fontWeight: '700'
+    },
+
 
 })
 

@@ -7,7 +7,7 @@ import { ImageSlider } from "../components/ImageSlider";
 
 const {width, height} = Dimensions.get('window');
 
-const Post = ({post}) => {
+const Post = ({post, navigation}) => {
     return (
         <View style={{marginBottom: 30}}>
             <View 
@@ -21,7 +21,7 @@ const Post = ({post}) => {
                 <PostFooter />
                 <Likes post={post} />
                 <Caption post={post} />
-                <CommentSection post={post} />
+                <CommentSection post={post} navigation={navigation} />
                 {/* <Comment post={post} /> */}
             </View>
         </View>
@@ -96,7 +96,7 @@ const Caption = ({post}) => (
 )
 
 
-function CommentSection ({post}) {
+function CommentSection ({post, navigation}) {
     const [commentView, setCommentView] = useState(false);
     const pressComment = (value) => {
         console.log(value);
@@ -108,7 +108,7 @@ function CommentSection ({post}) {
         {
             !!post.comment.length &&
             <View>
-                <Text style={[styles.viewComment]} onPress={() => pressComment(!commentView)}>
+                <Text style={[styles.viewComment]} onPress={() => navigation.navigate('Comment', {post: post})}>
                     댓글 {post.comment.length > 1 ? post.comment.length + '개 모두 보기' : '개 보기'}
                 </Text>
             </View>

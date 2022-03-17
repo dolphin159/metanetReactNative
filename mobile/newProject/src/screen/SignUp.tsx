@@ -6,7 +6,6 @@ import { event } from 'react-native-reanimated';
 import { Formik } from 'formik';
 import * as Yup from 'yup'
 import {firebase, db} from '../../firebase';
-import { useMonitorAnimatedValue } from '../hooks/useMonitorAnimatedValue';
 
 const SignUp = ({navigation}:any) => {
     const SignUpFormSchema = Yup.object().shape({
@@ -33,7 +32,7 @@ const SignUp = ({navigation}:any) => {
                     name: name,
                     username: username,
                     email: authUser.user?.email,
-                    avatar: '',
+                    avatar: 'https://www.seekpng.com/png/full/966-9665317_placeholder-image-person-jpg.png',
                     phone: '',
             })
 

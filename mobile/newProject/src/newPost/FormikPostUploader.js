@@ -16,16 +16,55 @@ const uploadPostSchema = Yup.object().shape({
 
 const FormikPostUploader = ({navigation}) => {
     const [thumbnailUrl, setThumbnailUrl] = useState(PlaceHolder_Img);
-    const [currentUser, setCurrentUser] = useState(null)
+    const [currentLoggedInUser, setCurrentLoggedInUser] = useState(null)
 
+    const getUserName = () => {
+        const user = firebase.auth().currentUser
+        const unsubscribe = db
+            .collection('users')
+            .where('owner_uid', '==', user.uid)
+            .limit(1)
+            .onSnapshot(snapShot => 
+                snapShot.docs.map(doc => {
+                    setCurrentLoggedInUser({
+                        username: doc.data().username,
+                        avatar: doc.data().avatar,
+                    })
+                })
+            )
+        return unsubscribe
+    }
+
+    useEffect(() => {
+        getUserName()
+    }, [])
+
+    const uploadPostToFirebase = (postImage, caption) => {
+        const unsubscribe = db
+            .collection('users')
+            .doc(firebase.auth().currentUser.email)
+            .collection('post')
+            .add({
+                postImage: postImage,
+                user: currentLoggedInUser.username,
+                avatar: currentLoggedInUser.avatar,
+                owner_uid: firebase.auth().currentUser.uid,
+                caption: caption,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                like: 0,
+                likes_by_users: [],
+                comment: [],
+            })
+            .then(() => navigation.goBack())
+        
+        return unsubscribe
+    }
 
     return (
         <Formik
         initialValues={{caption: '', imageUrl: ''}}
         onSubmit={values => {
-            console.log(values)
-            console.log('게시글이 성공적으로 등록되었습니다!')
-            navigation.goBack()
+            uploadPostToFirebase(values.imageUrl, values.caption)
         }}
         validationSchema={uploadPostSchema}
         validateOnMount={true}

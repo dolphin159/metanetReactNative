@@ -20,7 +20,7 @@ const MainScreen = ({navigation}:any) => {
             <Stories />
             <ScrollView>
                 {PostList.map((post, i) => (
-                    <Post post={post} key={i} />
+                    <Post post={post} key={i} navigation={navigation} />
                 ))}
             </ScrollView>
             <BottomTabs />

@@ -5,15 +5,12 @@ import Post from "../components/Post";
 import CommentList from '../components/CommentList'
 import Stories from "../home/Stories";
 import BottomTabs from "../home/BottomTabs";
-import { PostList } from "../data/posts";
 
-const Comment = () => {
+const Comment = ({navigation, route}:any) => {
     return (
         <SafeAreaView style={[styles.container]}>
             <ScrollView>
-                {PostList.map((post, i) => (
-                    <CommentList post={post} key={i} />
-                ))}
+                <CommentList navigation={navigation} route={route}/>
             </ScrollView>
             <BottomTabs />
         </SafeAreaView>
