@@ -19,7 +19,7 @@ const SignedInStack = () => (
             initialRouteName='Main'
             screenOptions={screenOptions}
         >
-            <Stack.Screen name='Main' component={Main} />
+            <Stack.Screen name='Main' component={Main}/>
             <Stack.Screen name='NewPostScreen' component={NewPostScreen} />
             <Stack.Screen name='Comment' component={Comment} />
         </Stack.Navigator>

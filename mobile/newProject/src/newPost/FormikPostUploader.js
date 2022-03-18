@@ -40,18 +40,19 @@ const FormikPostUploader = ({navigation}) => {
     }, [])
 
     const uploadPostToFirebase = (postImage, caption) => {
+        const imageArray = postImage.split(',')
         const unsubscribe = db
             .collection('users')
             .doc(firebase.auth().currentUser.email)
             .collection('post')
             .add({
-                postImage: postImage,
+                postImage: imageArray,
                 user: currentLoggedInUser.username,
                 avatar: currentLoggedInUser.avatar,
                 owner_uid: firebase.auth().currentUser.uid,
                 caption: caption,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                like: 0,
+                likes: 0,
                 likes_by_users: [],
                 comment: [],
             })

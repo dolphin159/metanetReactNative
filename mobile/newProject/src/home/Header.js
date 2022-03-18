@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import { Colors } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { TouchableIcon } from '../components/TouchableIcon';
 import { TouchableView } from '../components/TouchableView'
 import { firebase } from '../../firebase'
 
@@ -19,17 +20,11 @@ const handleSignOut = async () => {
 const Header = ({navigation}) => {
   return (
     <View style={[styles.header]}>
-      <TouchableView>
-        <Icon style={[styles.icon]} name="camera" size={28}/>
-      </TouchableView>
-      <TouchableView
-        onPress={handleSignOut}
-      >
+      <TouchableIcon style={[styles.icon]} name="camera" size={28}/>
+      <TouchableView onPress={handleSignOut}>
         <Text style={[styles.headerText]}>Instagram</Text>
       </TouchableView>
-      <TouchableView>
-        <Icon style={[styles.icon]} name="plus-box" size={28} onPress={() => navigation.push('NewPostScreen')} />
-      </TouchableView>
+      <TouchableIcon style={[styles.icon]} name="plus-box" size={28} onPress={() => navigation.push('NewPostScreen')} />
     </View>
   );
 };

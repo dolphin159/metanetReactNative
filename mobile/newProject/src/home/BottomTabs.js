@@ -1,16 +1,18 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { View, Text, StyleSheet, Image } from 'react-native'
 import { TouchableView } from "../components/TouchableView";
+import { TouchableIcon } from "../components/TouchableIcon";
 import { LoginSession } from "../data/users"
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Colors } from "react-native-paper";
+import { db, firebase } from "../../firebase";
 
-const BottomTabs = () => {
-    const[activeHome, setActiveHome] = useState(false);
-    const[activeSearch, setActiveSearch] = useState(false);
-    const[activePlay, setActivePlay] = useState(false);
-    const[activeShop, setActiveShop] = useState(false);
-    const[activeProfile, setActiveProfile] = useState(false);
+const BottomTabs = ({userSession}) => {
+    const [activeHome, setActiveHome] = useState(false);
+    const [activeSearch, setActiveSearch] = useState(false);
+    const [activePlay, setActivePlay] = useState(false);
+    const [activeShop, setActiveShop] = useState(false);
+    const [activeProfile, setActiveProfile] = useState(false);
 
     const resetActive = (value) => {
         setActiveHome(value);
@@ -52,23 +54,29 @@ const BottomTabs = () => {
 
     return (
         <View style={[styles.bottomTab]}>
-            <TouchableView onPress={() => pressHome(activeHome)}>
-                <Icon style={[styles.bottomTabIcon]} name={activeHome ? 'home' : 'home-outline'} size={35}/>
-            </TouchableView>
-            <TouchableView onPress={() => pressSearch(activeSearch)}>
-                <Icon style={[styles.bottomTabIcon, activeSearch ? styles.focusSearch : null]} name="magnify" size={35}/>
-            </TouchableView>
-            <TouchableView onPress={() => pressPlay(activePlay)}>
-                <Icon style={[styles.bottomTabIcon]} name={activePlay ? 'movie-play' : "movie-play-outline"} size={35}/>
-            </TouchableView>
-            <TouchableView onPress={() => pressShop(activeShop)}>
-                <Icon style={[styles.bottomTabIcon]} name={activeShop ? 'shopping' : "shopping-outline"} size={35}/>
-            </TouchableView>
+            <TouchableIcon 
+                style={[styles.bottomTabIcon]} name={activeHome ? 'home' : 'home-outline'} 
+                size={35} onPress={() => pressHome(activeHome)}
+            />
+            <TouchableIcon 
+                style={[styles.bottomTabIcon, activeSearch ? styles.focusSearch : null]} 
+                name="magnify" size={35} onPress={() => pressSearch(activeSearch)}
+            />
+            <TouchableIcon 
+                style={[styles.bottomTabIcon]} name={activePlay ? 'movie-play' : "movie-play-outline"}
+                size={35} onPress={() => pressPlay(activePlay)}
+            />
+            <TouchableIcon 
+                style={[styles.bottomTabIcon]} name={activeShop ? 'shopping' : "shopping-outline"} 
+                size={35} onPress={() => pressShop(activeShop)}
+            />
             <TouchableView onPress={() => pressProfile(activeProfile)}>
-                <Image 
-                    style={[styles.avatar, activeProfile ? styles.focusAvatar : null]}
-                    source={{uri: LoginSession.avatar}}
-                />
+                {userSession && (
+                    <Image 
+                        style={[styles.avatar, activeProfile ? styles.focusAvatar : null]}
+                        source={{uri: userSession.avatar}}
+                    />
+                )}
             </TouchableView>
         </View>
     )
