@@ -5,6 +5,7 @@ import Login from "./Login";
 import SignUp from "./SignUp";
 import Main from "./Main";
 import NewPostScreen from "./NewPostScreen";
+import Profile from "./Profile";
 import Comment from'./Comment'
 
 const Stack = createStackNavigator();
@@ -22,6 +23,7 @@ const SignedInStack = () => (
             <Stack.Screen name='Main' component={Main}/>
             <Stack.Screen name='NewPostScreen' component={NewPostScreen} />
             <Stack.Screen name='Comment' component={Comment} />
+            <Stack.Screen name='Profile' component={Profile} />
         </Stack.Navigator>
     </NavigationContainer>
 )

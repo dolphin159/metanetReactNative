@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Colors } from "react-native-paper";
 import { db, firebase } from "../../firebase";
 
-const BottomTabs = ({userSession}) => {
+const BottomTabs = ({userSession, navigation}) => {
     const [activeHome, setActiveHome] = useState(false);
     const [activeSearch, setActiveSearch] = useState(false);
     const [activePlay, setActivePlay] = useState(false);
@@ -26,6 +26,7 @@ const BottomTabs = ({userSession}) => {
         if(value) return;
         resetActive(value);
         setActiveHome(!value);
+        navigation.navigate('Main')
     }
 
     const pressSearch = (value) => {
@@ -50,6 +51,7 @@ const BottomTabs = ({userSession}) => {
         if(value) return;
         resetActive(value);
         setActiveProfile(!value);
+        navigation.navigate('Profile', {user: userSession})
     }
 
     return (
@@ -59,7 +61,8 @@ const BottomTabs = ({userSession}) => {
                 size={35} onPress={() => pressHome(activeHome)}
             />
             <TouchableIcon 
-                style={[styles.bottomTabIcon, activeSearch ? styles.focusSearch : null]} 
+                style={[styles.bottomTabIcon]}
+                color={activeSearch ? Colors.grey800 : null} 
                 name="magnify" size={35} onPress={() => pressSearch(activeSearch)}
             />
             <TouchableIcon 
@@ -103,11 +106,8 @@ const styles = StyleSheet.create({
     },
     focusAvatar: {
         borderWidth: 2,
-        borderColor: Colors.black,
+        borderColor: Colors.grey600,
     },
-    focusSearch: {
-        color: Colors.black,
-    }
 })
 
 export default BottomTabs;

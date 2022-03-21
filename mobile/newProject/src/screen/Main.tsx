@@ -44,8 +44,12 @@ const MainScreen = ({navigation}:any) => {
     // 변수에 값 할당
     useEffect(() => {
         getSessionData()
-        db.collectionGroup('post').onSnapshot(snapshot => {
-            setPosts(snapshot.docs.map(doc => doc.data()))
+        db.collectionGroup('post')
+        .onSnapshot(snapshot => {
+            setPosts(snapshot.docs.map(post => (
+                {id: post.id, ...post.data()})
+            )
+        )
         })
     }, [])
 
@@ -55,10 +59,10 @@ const MainScreen = ({navigation}:any) => {
             <Stories />
             <ScrollView>
                 {posts.map((post:any, i:number) => (
-                    <Post post={post} key={i} navigation={navigation} />
+                    <Post post={post} key={i} navigation={navigation} userSession={userSession}/>
                 ))}
             </ScrollView>
-            <BottomTabs userSession={userSession}/>
+            <BottomTabs userSession={userSession} navigation={navigation} />
         </SafeAreaView>
     )
 }

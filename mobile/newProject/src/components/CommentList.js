@@ -6,9 +6,9 @@ import { TouchableIcon } from "../components/TouchableIcon"
 // const { width, height } = Dimensions.get('window');
 
 const CommentList = ({ navigation, route }) => {
-    // useEffect(() => {
-    //     console.log(route.params.post)
-    // })
+    useEffect(() => {
+        console.log(route.params.post)
+    })
     return (
         <View style={{ marginBottom: 30 }}>
             <View
@@ -51,10 +51,10 @@ const Caption = ({ caption }) => (
                 source={{ uri: caption.avatar }}
             />
             <Text style={[styles.avatarName]}>
-                {caption.userid}
+                {caption.user}
             </Text>
             <Text style={[styles.content]}>
-                {caption.Content}
+                {caption.caption}
             </Text>
         </View>
 

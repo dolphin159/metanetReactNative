@@ -6,19 +6,46 @@
 
 // import part
 import React, { useState, useEffect} from "react";
-import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Image, Dimensions, TextInput } from "react-native";
 import { Colors } from "react-native-paper";
 import { TouchableIcon } from "../components/TouchableIcon";
 import { ImageSlider } from "../components/ImageSlider";
-import { RotateOutUpLeft } from "react-native-reanimated";
+import { db, firebase } from "../../firebase";
 
-// Dimensions를 이용한 화면 너비, 높이 구하기
+// Dimensions를 이용한 화면 너비, 높이 구하기f
 const {width, height} = Dimensions.get('window');
 
 /********************
 * Post 렌더링 부분
 *********************/
-const Post = ({post, navigation}) => {
+const Post = ({post, navigation, userSession}) => {
+    // 좋아요 상태 boolean
+    const currentLikeStatus = !post.likes_by_users.includes(
+        firebase.auth().currentUser.email
+    )
+    // 좋아요 이벤트 
+    // post배열에 likes_by_users 에 email값 추가 삭제
+    const handleLike = post => {
+        db.collection('users')
+        .doc(post.owner_email)
+        .collection('post')
+        .doc(post.id)
+        .update({
+            likes_by_users: currentLikeStatus
+                ? firebase.firestore.FieldValue.arrayUnion(
+                    firebase.auth().currentUser.email
+                )
+                : firebase.firestore.FieldValue.arrayRemove(
+                    firebase.auth().currentUser.email
+                )
+        })
+        .then(() => {
+            console.log('좋아요!')
+        })
+        .catch( e => {
+            console.error('error: ', e)
+        })
+    }
 
     // undefinded, null 확인
     const isEmpty = (value) => {
@@ -43,7 +70,7 @@ const Post = ({post, navigation}) => {
                 >
                     <PostHeadr post={post} />
                     <PostImage post={post} />
-                    <PostFooter />
+                    <PostFooter post={post} handleLike={handleLike} currentLikeStatus={currentLikeStatus} navigation={navigation} />
                     <Likes post={post} />
                     <Caption post={post} />
                     <CommentSection post={post} navigation={navigation} />
@@ -104,11 +131,20 @@ const PostImage = ({post}) => (
 )
 
 // Post의 아이콘 부분 현재 기능 X
-const PostFooter = () => (
+// 좋아요 추가
+// 댓글 추가
+const PostFooter = ({post, handleLike, currentLikeStatus, navigation}) => (
     <View style={{flexDirection: 'row'}}>
         <View style={[styles.postFooterView]}>
-            <TouchableIcon style={[styles.postFooterIcon]} name="heart-outline" size={30}/>
-            <TouchableIcon style={[styles.postFooterIcon]} name="comment-outline" size={30}/>
+            <TouchableIcon 
+                style={[styles.postFooterIcon]}
+                color={!currentLikeStatus ? Colors.red500 : null}
+                name={currentLikeStatus ? "heart-outline" : "heart"} size={30}
+                onPress={() => handleLike(post)}
+            />
+            <TouchableIcon style={[styles.postFooterIcon]} name="comment-outline" size={30}
+                onPress={() => navigation.navigate('Comment', {post: post})}
+            />
             <TouchableIcon style={[styles.postFooterIcon]} name="send-outline" size={30}/>
         </View>
         <View style={{flex: 1, alignItems: 'flex-end'}}>
@@ -120,7 +156,7 @@ const PostFooter = () => (
 // 좋아요 표시 부분 정규식을 활용하여 숫자에 ',' 표시
 const Likes = ({post}) => (
     <Text style={[styles.likeText]}>
-        {post.likes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}명이 좋아합니다.
+        {post.likes_by_users.length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}명이 좋아합니다.
     </Text>
 )
 
@@ -137,7 +173,7 @@ const Caption = ({post}) => (
 )
 
 // 댓글 개수 표시 부분 버튼 클릭시 parameter을 넘겨주며 화면 이동
-const CommentSection = ({post, navigation}) => (
+const CommentSection = ({post, navigation, userSession}) => (
     <>
     {
         !!post.comment.length &&
@@ -148,22 +184,6 @@ const CommentSection = ({post, navigation}) => (
         </View>
     }
     </>
-)
-
-// 댓글 구현 부분 사용 X
-const Comment = ({post}) => (
-    <View style={{marginLeft: 8}}>
-        {post.comment.map((val, index) => (
-            <View style={{flexDirection: 'row'}} key={index}>
-                <Text style={[styles.userId]}>
-                    {val.userid}
-                </Text>
-                <Text style={[styles.content]}>
-                    {val.comment}
-                </Text>
-            </View>
-        ))}
-    </View>
 )
 
 // ********** //
@@ -208,8 +228,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     postFooterIcon: {
-        margin: 8,
+        margin: 5,
         marginTop: 1,
+        marginRight: 3,
         marginBottom: 3,
     },
     likeText: {
